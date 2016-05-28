@@ -7,8 +7,12 @@ import _ from 'lodash';
 //   name: 'N/A'
 // };
 
-const STATE = { 
-  name: 'N/A'
+const STATE = {
+  comments: [
+    {name: "Aaron", text: "Hey man!"},
+    {name: "JimBob", text: "Yo, it's been too long! Come back to Texas!"}
+  ],
+  show: true
 };
 
 let ON_UPDATE_CALLBACK = null;
@@ -61,9 +65,12 @@ const sendEvent = (name, data) => {
 // handle!
 const handleEvent = ({ name, data }, state) => {
   console.log(data);
-  if (name === 'changeName') {
-    state.name = data;
-  } else {
+  if (name === 'addComment') {
+    state.comments.push(data);
+  }
+  else if (name === 'toggleComments'){
+    state.show = !state.show;
+  }else {
     // If we don't know what kind of event this is, alert the developer!
     throw new Error(`Unrecognized event: ${name}`);
   }
